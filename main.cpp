@@ -487,7 +487,8 @@ int main(int, char**)
         ImVec4 neg = ImVec4(0, 255, 255, 1);
         ImVec2 imButton = ImVec2(200, 200);
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-        GLuint my_image_texture = 1;
+        GLuint my_image_texture1 = 1;
+        GLuint my_image_texture2 = 0;
         //if (ImGui::BeginPopup(("Lname"))){
             if (ImGui::Begin("Settings", &showPlot, winflags)) {
                 //ImGui::PushItemWidth(100);
@@ -502,11 +503,12 @@ int main(int, char**)
                     ImPlotInputMap& map = ImPlot::GetInputMap();
 
                     ImGui::BeginChild("##text1", ImVec2(300, 300), false);
-                    ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture, imButton);
+                    ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture1, imButton);
                     ImGui::EndChild();
                     SameLine();
-                    ImGui::BeginChild("##text2", ImVec2(200, 30), false);
-                    ImGui::InputFloat("##Line Thickness", &map.LineRate, 0.01f, 1.0f, "%.3f");
+                    ImGui::BeginChild("##text2", ImVec2(100, 300), false);
+                    ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture2, imButton);
+                    //ImGui::InputFloat("##Line Thickness", &map.LineRate, 0.01f, 1.0f, "%.3f");
                     ImGui::EndChild();
 
                     ImGui::BeginChild("##text3", ImVec2(200, 30), false);

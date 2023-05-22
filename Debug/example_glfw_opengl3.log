@@ -1,0 +1,47 @@
+﻿  main.cpp
+D:\Chart\imgui-master\stb_image.h(2224,32): warning C4244: 'argument': conversion from 'int' to 'short', possible loss of data
+D:\Chart\imgui-master\stb_image.h(2281,35): warning C4244: 'argument': conversion from 'int' to 'short', possible loss of data
+D:\Chart\imgui-master\stb_image.h(3425,49): warning C4244: '=': conversion from 'int' to 'unsigned char', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(78,21): warning C4996: 'ImPlot::BeginPlot': was declared deprecated
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(242,15): warning C4189: 't_anim': local variable is initialized but not referenced
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(446,37): warning C4456: declaration of 'style' hides previous local declaration
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(358,21): message : see declaration of 'style'
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(450,71): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(450,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(457,71): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(457,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(464,71): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(464,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(471,71): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(471,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(478,71): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(478,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(485,71): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(485,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(492,71): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(492,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(500,71): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(500,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(516,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(516,70): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(523,75): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(523,70): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(530,75): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(530,70): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(537,72): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(537,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(544,75): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(544,70): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(552,72): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(552,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(557,72): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(557,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(322,10): warning C4189: 'show_demo_window': local variable is initialized but not referenced
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(323,10): warning C4189: 'show_another_window': local variable is initialized but not referenced
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(354,14): warning C4101: 'showPlot': unreferenced local variable
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(362,26): warning C4189: 'tab_bar_flags': local variable is initialized but not referenced
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(358,21): warning C4189: 'style': local variable is initialized but not referenced
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(448,33): warning C4189: 'map': local variable is initialized but not referenced
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(447,30): warning C4189: 'stylePlot': local variable is initialized but not referenced
+D:\Chart\imgui-master\examples\example_glfw_opengl3\main.cpp(446,29): warning C4189: 'style': local variable is initialized but not referenced
+  example_glfw_opengl3.vcxproj -> D:\Chart\imgui-master\examples\example_glfw_opengl3\Debug\example_glfw_opengl3.exe

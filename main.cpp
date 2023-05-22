@@ -92,17 +92,7 @@ void showPlot()
 
 }
 
-void menubar(ImGuiStyle& style) {
-    ImGui::Text("menubar");
-}
 
-void showRight(ImGuiStyle& style) {
-    ImGui::Text("right");
-}
-
-void showLeft(ImGuiStyle& style) {
-    ImGui::Text("left");
-}
 
 using namespace ImGui;
 bool Splitter(bool split_vertically, float thickness, float* size1, float* size2, float min_size1, float min_size2, float splitter_long_axis_size = -1.0f)
@@ -153,104 +143,7 @@ bool LoadTextureFromFile(const char* filename, GLuint* out_texture,
     return true;
 }
 
-void funShowSettings() {
 
-    float width = 100;
-    static bool antiAliasedLines;
-    static float line_weight;
-    static float chart_width;
-    static float r_limit;
-
-    ImGui::SetCursorPosY(16);
-
-    if (ImGui::TreeNode("Configuration##1")) {
-        ImGui::BeginGroup();
-
-        ImGuiStyle& style = ImGui::GetStyle();
-
-        ImPlotStyle& stylePlot = ImPlot::GetStyle();
-        ImPlotInputMap& map = ImPlot::GetInputMap();
-
-        static float d0 = 9.001;
-
-        ImGui::BeginChild("##text1", ImVec2(200, 30), false);
-        Text("Scroll Speed");
-        EndChild();
-        SameLine();
-
-        ImGui::BeginChild("##text2", ImVec2(200, 30), false);
-        ImGui::InputFloat("##ScrollSpeed", &map.WheelRate, 0.01f, 1.0f, "%.3f");
-        EndChild();
-
-        ImGui::BeginChild("##text3", ImVec2(200, 30), false);
-        Text("Zoom Rate");
-        EndChild();
-
-        SameLine();
-        ImGui::BeginChild("##text4", ImVec2(200, 30), false);
-        ImGui::InputFloat("##ZoomRate", &map.ZoomRate, 0.01f, 1.0f, "%.3f");
-        EndChild();
-        
-        ImGui::BeginChild("##text5", ImVec2(200, 30), false);
-        Text("Anti-aliased lines");
-        EndChild();
-        SameLine();
-        ImGui::BeginChild("##text6", ImVec2(200, 30), false);
-        ImGui::Checkbox("##antialiased", &antiAliasedLines);
-        EndChild();
-
-        //stylePlot.AntiAliasedLines = antiAliasedLines;
-        //style.AntiAliasedLines = stylePlot.AntiAliasedLines;
-        ImGui::SetNextItemWidth(width);
-        //colorPicker(&logViewerSettings.background_color, "Background Color");
-        ImGui::BeginChild("##text7", ImVec2(200, 30), false);
-        ImGui::Text("Font Selector");
-        EndChild();
-        SameLine();
-        ImGui::BeginChild("##text8", ImVec2(200, 30), false);
-        ImGui::ShowFontSelector("Font Selector");
-        EndChild();
-
-
-        ImGui::BeginChild("##text9", ImVec2(200, 30), false);
-        ImGui::Text("Line Thickness");
-        EndChild();
-        SameLine();
-
-        ImGui::BeginChild("##text10", ImVec2(200, 30), false);
-        ImGui::InputFloat("##ZoomRate", &map.LineRate, 0.01f, 1.0f, "%.3f");
-        //ImGui::DragFloat("##linethickness", &line_weight, 0.1f, 0.0f, 3.0f, "%.2f");
-        EndChild();
-
-
-        ImGui::BeginChild("##text11", ImVec2(200, 30), false);
-        ImGui::Text("Track Width");
-        EndChild();
-
-        SameLine();
-
-        ImGui::BeginChild("##text12", ImVec2(200, 30), false);
-        ImGui::InputFloat("##ZoomRate", &map.TrackRate, 0.01f, 1.0f, "%.3f");
-        //ImGui::DragFloat("##trackwidth", &chart_width, 5.0f, 150.0f, 500.0f, "%.2f", ImGuiSliderFlags_AlwaysClamp);
-        EndChild();
-
-        ImGui::BeginChild("##text13", ImVec2(200, 30), false);
-        ImGui::Text("Range Limit");
-        EndChild();
-
-        SameLine();
-        ImGui::BeginChild("##text14", ImVec2(200, 30), false);
-        ImGui::InputFloat("##ZoomRate", &map.RangeRate, 0.01f, 1.0f, "%.3f");
-        //if (ImGui::DragFloat("##rangelimit", &r_limit, 10.0f, 200.0f, 2000.0f,
-        //    "%.2f", ImGuiSliderFlags_AlwaysClamp)) {
-        //    //logViewerSettings.markerClicked.first = true;
-        //    //logViewerSettings.markerClicked.second = logViewerSettings.r_limit + lims->Y.Min;
-        //}
-        EndChild();
-        ImGui::EndGroup();
-        ImGui::TreePop();
-    }
-}
 
 void colorPicker(ImVec4* tagColor, std::string name) {
     bool saved_palette_init = true;
@@ -477,289 +370,201 @@ int main(int, char**)
         static bool tabselection[3] = { false, true, false };
         
         //-----------------------------------------------------------------------------------
-        float logView_thickness = 1.0f, logView_opacity = 1.0f;
-        static bool logView_isGlobalThickness = false;
-        static bool positiveFill = false;
-        static bool negativeFill = false;
-        static bool LogScale = false;
-        ImVec4 pos =  ImVec4(0, 255, 255, 1);
-        ImVec4 line =  ImVec4(0, 255, 255, 1);
-        ImVec4 neg = ImVec4(0, 255, 255, 1);
-        ImVec2 imButton = ImVec2(200, 200);
+      
+        ImVec2 imButton = ImVec2(65, 65);
+        int buttonChildWidth = 100;
+        int buttonChildHeight = 100;
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-        GLuint my_image_texture1 = 1;
+        GLuint my_background_texture = 0;
+        int my_background_width = 0;
+        int my_background_height = 0;
+
+        GLuint my_image_texture1 = 0;
         GLuint my_image_texture2 = 0;
+        GLuint my_image_texture3 = 0;
+        GLuint my_image_texture4 = 0;
+        GLuint my_image_texture5 = 0;
+        GLuint my_image_texture6 = 0;
+        GLuint my_image_texture7 = 0;
+        GLuint my_image_texture8 = 0;
+        GLuint my_image_texture9 = 0;
+        GLuint my_image_texture10 = 0;
+        GLuint my_image_texture11 = 0;
+        GLuint my_image_texture12 = 0;
+        GLuint my_image_texture13 = 0;
+        GLuint my_image_texture14 = 0;
+        GLuint my_image_texture15 = 0;
+
+        int my_image_width = 0;
+        int my_image_height = 0;
+        bool ret0 = LoadTextureFromFile("D:\\Chart\\MainWindow\\BackgroundNextVision.png", &my_background_texture, &my_background_width, &my_background_height);
+        bool ret1 = LoadTextureFromFile("D:\\Chart\\MainWindow\\Session_Manager.png", &my_image_texture1, &my_image_width, &my_image_height);
+        bool ret2 = LoadTextureFromFile("D:\\Chart\\MainWindow\\Processing.png", &my_image_texture2, &my_image_width, &my_image_height);
+        bool ret3 = LoadTextureFromFile("D:\\Chart\\MainWindow\\RGTView.png", &my_image_texture3, &my_image_width, &my_image_height);
+        bool ret4 = LoadTextureFromFile("D:\\Chart\\MainWindow\\FileConversion.png", &my_image_texture4, &my_image_width, &my_image_height);
+        bool ret5 = LoadTextureFromFile("D:\\Chart\\MainWindow\\SpectrumVideo.png", &my_image_texture5, &my_image_width, &my_image_height);
+        bool ret6 = LoadTextureFromFile("D:\\Chart\\MainWindow\\Play_Video.png", &my_image_texture6, &my_image_width, &my_image_height);
+        bool ret7 = LoadTextureFromFile("D:\\Chart\\MainWindow\\BNNI.png", &my_image_texture7, &my_image_width, &my_image_height);
+        bool ret8 = LoadTextureFromFile("D:\\Chart\\MainWindow\\CCUS.png", &my_image_texture8, &my_image_width, &my_image_height);
+        bool ret9 = LoadTextureFromFile("D:\\Chart\\MainWindow\\DataBase.png", &my_image_texture9, &my_image_width, &my_image_height);
+        bool ret10 = LoadTextureFromFile("D:\\Chart\\MainWindow\\Screen_Shot.png", &my_image_texture10, &my_image_width, &my_image_height);
+        bool ret11 = LoadTextureFromFile("D:\\Chart\\MainWindow\\Video_Capture.png", &my_image_texture11, &my_image_width, &my_image_height);
+        bool ret12 = LoadTextureFromFile("D:\\Chart\\MainWindow\\VNC.png", &my_image_texture12, &my_image_width, &my_image_height);
+        bool ret13 = LoadTextureFromFile("D:\\Chart\\MainWindow\\Calculator.png", &my_image_texture13, &my_image_width, &my_image_height);
+        bool ret14 = LoadTextureFromFile("D:\\Chart\\MainWindow\\NKDEEP.png", &my_image_texture14, &my_image_width, &my_image_height);
+        bool ret15 = LoadTextureFromFile("D:\\Chart\\MainWindow\\LogoTotal.png", &my_image_texture15, &my_image_width, &my_image_height);
+
+        IM_ASSERT(ret0);
+        IM_ASSERT(ret1);
+        IM_ASSERT(ret2);
+        IM_ASSERT(ret3);
+        IM_ASSERT(ret4);
+        IM_ASSERT(ret5);
+        IM_ASSERT(ret6);
+        IM_ASSERT(ret7);
+        IM_ASSERT(ret8);
+        IM_ASSERT(ret9);
+        IM_ASSERT(ret10);
+        IM_ASSERT(ret11);
+        IM_ASSERT(ret12);
+        IM_ASSERT(ret13);
+        IM_ASSERT(ret14);
+        IM_ASSERT(ret15);
+
         //if (ImGui::BeginPopup(("Lname"))){
-            if (ImGui::Begin("Settings", &showPlot, winflags)) {
+            //if (ImGui::Begin("Settings", &showPlot, winflags)) {
                 //ImGui::PushItemWidth(100);
-                ImGui::SetCursorPosY(30);
+                //ImGui::SetCursorPosY(30);
+        if (ImGui::BeginChild("##text00", ImVec2(1000, 700), true)) {
+            ImGui::Image((void*)(intptr_t)my_background_texture, ImVec2(1000, 700));
+            ImGui::SetCursorPosY(10);
+            ImGui::SetCursorPosX(100);
+            //if (ImGui::TreeNode("Configuration##1")) {
+            if (ImGui::BeginChild("##text01", ImVec2(1000, 100), false)) {
+                //ImGui::BeginGroup();
+
+                ImGuiStyle& style = ImGui::GetStyle();
+                ImPlotStyle& stylePlot = ImPlot::GetStyle();
+                ImPlotInputMap& map = ImPlot::GetInputMap();
+
+                ImGui::BeginChild("##text1", ImVec2(buttonChildWidth, buttonChildHeight), false);
+                ImGui::SetCursorPosX(5);
+                ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture1, imButton);
+                Text("Session");
+                ImGui::EndChild();
+                SameLine();
+
+                ImGui::BeginChild("##text2", ImVec2(buttonChildWidth, buttonChildHeight), false);
+                ImGui::SetCursorPosX(5);
+                ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture2, imButton);
+                Text("Processing");
+                ImGui::EndChild();
+                SameLine();
+
+                ImGui::BeginChild("##text3", ImVec2(buttonChildWidth, buttonChildHeight), false);
+                ImGui::SetCursorPosX(5);
+                ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture3, imButton);
+                Text("RGT View");
+                ImGui::EndChild();
+                SameLine();
+
+                ImGui::BeginChild("##text4", ImVec2(buttonChildWidth, buttonChildHeight), false);
+                ImGui::SetCursorPosX(5);
+                ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture4, imButton);
+                Text("File Conver");
+                ImGui::EndChild();
+                SameLine();
+
+                ImGui::BeginChild("##text5", ImVec2(buttonChildWidth, buttonChildHeight), false);
+                ImGui::SetCursorPosX(5);
+                ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture5, imButton);
+                Text("Spectrum V");
+                ImGui::EndChild();
+                SameLine();
+
+                ImGui::BeginChild("##text6", ImVec2(buttonChildWidth, buttonChildHeight), false);
+                ImGui::SetCursorPosX(5);
+                ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture6, imButton);
+                Text("Play Video");
+                ImGui::EndChild();
+                SameLine();
+
+                ImGui::BeginChild("##text7", ImVec2(buttonChildWidth, buttonChildHeight), false);
                 
+                ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture7, imButton);
+                ImGui::SetCursorPosX(10);
+                Text("BNNI");
+                ImGui::EndChild();
+                SameLine();
+
+                ImGui::BeginChild("##text8", ImVec2(buttonChildWidth, buttonChildHeight), false);
                 
-                if (ImGui::TreeNode("Configuration##1")) {
-                    ImGui::BeginGroup();
-
-                    ImGuiStyle& style = ImGui::GetStyle();
-                    ImPlotStyle& stylePlot = ImPlot::GetStyle();
-                    ImPlotInputMap& map = ImPlot::GetInputMap();
-
-                    ImGui::BeginChild("##text1", ImVec2(300, 300), false);
-                    ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture1, imButton);
-                    ImGui::EndChild();
-                    SameLine();
-                    ImGui::BeginChild("##text2", ImVec2(100, 300), false);
-                    ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture2, imButton);
-                    //ImGui::InputFloat("##Line Thickness", &map.LineRate, 0.01f, 1.0f, "%.3f");
-                    ImGui::EndChild();
-
-                    ImGui::BeginChild("##text3", ImVec2(200, 30), false);
-                    Text("Global thickness");
-                    ImGui::EndChild();
-                    SameLine();
-                    ImGui::BeginChild("##text4", ImVec2(200, 30), false);
-                    ToggleButton("##Global thickness", &logView_isGlobalThickness);
-                    ImGui::EndChild();
-
-                    ImGui::BeginChild("##text5", ImVec2(200, 30), false);
-                    Text("Fill opacity");
-                    ImGui::EndChild();
-                    SameLine();
-                    ImGui::BeginChild("##text6", ImVec2(200, 30), false);
-                    ImGui::InputFloat("##Fill opacity", &map.OpacityRate, 0.01f, 1.0f, "%.3f");
-                    ImGui::EndChild();
-
-                    ImGui::BeginChild("##text7", ImVec2(200, 30), false);
-                    Text("Reference");
-                    ImGui::EndChild();
-                    SameLine();
-                    ImGui::BeginChild("##text8", ImVec2(200, 30), false);
-                    ImGui::InputFloat("##Reference", &map.ReferenceRate, 0.01f, 1.0f, "%.3f");
-                    ImGui::EndChild();
-
-                    ImGui::EndGroup();
-                    ImGui::TreePop();
-                }
-
-                //-------------------------------------------------------------------------------
-                // ---------------Color treeNode ----------------------
+                ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture8, imButton);
+                ImGui::SetCursorPosX(10);
+                Text("CCUS");
+                ImGui::EndChild();
                 
-                /*if (ImGui::TreeNode("Color##2")) {
-                    ImGui::BeginGroup();
-
-                    ImGuiStyle& style = ImGui::GetStyle();
-                    ImPlotStyle& stylePlot = ImPlot::GetStyle();
-                    ImPlotInputMap& map = ImPlot::GetInputMap();
-
-                    ImGui::BeginChild("##text1", ImVec2(200, 30), false);
-                    colorPicker(&line, "LineColor##1");
-                    ImGui::EndChild();
-
-                    ImGui::BeginChild("##text2", ImVec2(200, 30), false);
-                    colorPicker(&pos, "Possitive Fill##2");
-                    ImGui::EndChild();
-                    ImGui::SameLine();
-                    ImGui::BeginChild("##text3", ImVec2(150, 30), false);
-                    Text("Possitive Fill");
-                    ImGui::EndChild();
-                    ImGui::SameLine();
-                    ImGui::BeginChild("##text4", ImVec2(200, 30), false);
-                    ImGui::Checkbox("##Possitive Fill", &positiveFill);
-                    ImGui::EndChild();
-
-                    ImGui::BeginChild("##text5", ImVec2(200, 30), false);
-                    colorPicker(&neg, "Negative Fill##5");
-                    ImGui::EndChild();
-                    ImGui::SameLine();
-                    ImGui::BeginChild("##text6", ImVec2(150, 30), false);
-                    Text("Negative Fill");
-                    ImGui::EndChild();
-                    ImGui::SameLine();
-                    ImGui::BeginChild("##text7", ImVec2(200, 30), false);
-                    ImGui::Checkbox("##Negative Fill", &negativeFill);
-                    ImGui::EndChild();
-                    
-                    ImGui::BeginChild("##text8", ImVec2(200, 30), false);
-                    Text("Log Scale");
-                    ImGui::EndChild();
-                    ImGui::SameLine();
-                    ImGui::BeginChild("##text9", ImVec2(200, 30), false);
-                    ImGui::Checkbox("##Log Scale", &LogScale);
-                    ImGui::EndChild();
-
-                    ImGui::BeginChild("##text10", ImVec2(200, 30), false);
-                    Text("Min");
-                    ImGui::EndChild();
-                    SameLine();
-                    ImGui::BeginChild("##text11", ImVec2(200, 30), false);
-                    ImGui::InputFloat("##Min", &map.Min, 0.01f, 1.0f, "%.3f");
-                    ImGui::EndChild();
-                   
-                    ImGui::BeginChild("##text12", ImVec2(200, 30), false);
-                    Text("Max");
-                    ImGui::EndChild();
-                    SameLine();
-                    ImGui::BeginChild("##text13", ImVec2(200, 30), false);
-                    ImGui::InputFloat("##Max", &map.Max, 0.01f, 1.0f, "%.3f");
-                    ImGui::EndChild();
-                    
-                                    
-                    ImGui::EndGroup();
-                    ImGui::TreePop();
-                }*/
-                End();
-                
-                //---------------------------------------------------------------------------------------------
-                
-
-                static int logViewerSettings_histogramBins = 0;
-                static bool logViewerSettings_histogramDensity = 0;
-                static bool logViewerSettings_histogramCumulative = 0;
-                static bool logViewerSettings_histogramOutliers = false;
-                float width_size = 200, height_size = 30;
-                ImGui::SetNextItemOpen(true);
-                if (ImGui::TreeNode("Configuration##plot")) {
-                    ImGui::SetNextItemWidth(200);
-                    //--------------------------------------
-                    Checkbox("##", &logViewerSettings_histogramDensity);
-                    if (logViewerSettings_histogramDensity) {
-                        ImGui::SameLine();
-                        ImGui::Image((void*)(intptr_t)10, ImVec2(16, 16));
-                        
-                    }
-                    ImGui::SameLine();
-                    Text("AM_");
-
-                    ImGui::BeginChild("##text1", ImVec2(width_size, height_size), false);
-                    if (ImGui::RadioButton("Sqrt", logViewerSettings_histogramBins == ImPlotBin_Sqrt)) { logViewerSettings_histogramBins = ImPlotBin_Sqrt; } //ImGui::SameLine();
-                    EndChild();
-                   
-                    ImGui::BeginChild("##text2", ImVec2(width_size, height_size), false);
-                    if (ImGui::RadioButton("Sturges", logViewerSettings_histogramBins == ImPlotBin_Sturges)) { logViewerSettings_histogramBins = ImPlotBin_Sturges; }// ImGui::SameLine();
-                    EndChild();
-                    
-                    ImGui::BeginChild("##text3", ImVec2(width_size, height_size), false);
-                    if (ImGui::RadioButton("Rice", logViewerSettings_histogramBins == ImPlotBin_Rice)) { logViewerSettings_histogramBins = ImPlotBin_Rice; } //ImGui::SameLine();
-                    EndChild();
-                
-                    ImGui::BeginChild("##text4", ImVec2(width_size, height_size), false);
-                    if (ImGui::RadioButton("Scott", logViewerSettings_histogramBins == ImPlotBin_Scott)) { logViewerSettings_histogramBins = ImPlotBin_Scott; } //ImGui::SameLine();
-                    EndChild();
-                    
-                    ImGui::BeginChild("##text5", ImVec2(width_size, height_size), false);
-                    if (ImGui::RadioButton("N Bins", logViewerSettings_histogramBins >= 0)) { logViewerSettings_histogramBins = 50; }
-                    EndChild();
-                    //--------------------------------------------
-                    ImGui::BeginChild("##text6", ImVec2(width_size, height_size*2), false);
-                    if (logViewerSettings_histogramBins >= 0) {
-                        //ImGui::SameLine();
-                        ImGui::SetNextItemWidth(150);
-                        ImGui::InputInt("##Bins", &logViewerSettings_histogramBins, 1, 100);
-
-                        //ImGui::SliderInt("##Bins", &logViewerSettings_histogramBins, 1, 100);
-                    }
-                    EndChild();
-                    //--------------------------------------------
-                    ImGui::BeginChild("##text7", ImVec2(width_size/2 +10, height_size), false);
-                    Text("Density");
-                    EndChild();
-                    SameLine();
-                    ImGui::BeginChild("##text8", ImVec2(width_size, height_size), false);
-                    ToggleButton("##Density", &logViewerSettings_histogramDensity);
-                    if (logViewerSettings_histogramDensity) {
-                        ImPlot::SetNextAxisToFit(ImAxis_X1);
-                        ImPlot::SetNextAxisToFit(ImAxis_Y1);
-                    }
-                    EndChild();
-                    
-                   
-                    //------------------------------------------
-                    
-                    ImGui::BeginChild("##text9", ImVec2(width_size / 2 +10, height_size), false);
-                    Text("Cumulative");
-                    EndChild();
-                    SameLine();
-                    ImGui::BeginChild("##text10", ImVec2(width_size , height_size), false);
-                    ToggleButton("##Cumulative", &logViewerSettings_histogramCumulative);
-                    if (logViewerSettings_histogramCumulative)
-                    {
-                        ImPlot::SetNextAxisToFit(ImAxis_X1);
-                        ImPlot::SetNextAxisToFit(ImAxis_Y1);
-                    }
-                    EndChild();
-
-                    //---------------------------------------------
-                    ImGui::BeginChild("##text11", ImVec2(width_size / 2 +10, height_size), false);
-                    static bool range = false;
-                    Text("Range");
-                    EndChild();
-                    SameLine();
-                    ImGui::BeginChild("##text12", ImVec2(width_size, height_size), false);
-                    ToggleButton("##Range", &range);
-                    EndChild();
-                    static float rmin = -3;
-                    static float rmax = 13;
-                    if (range) {
-                        //ImGui::SameLine();
-                        ImGui::SetNextItemWidth(200);
-                        ImGui::BeginChild("##text13", ImVec2(width_size, height_size), false);
-                        ImGui::DragFloat2("##Range", &rmin, 0.1f, -3, 13);
-                        EndChild();
-                        
-                        //ImGui::SameLine();
-                        ImGui::BeginChild("##text14", ImVec2(width_size/2 + 10, height_size), false);
-                        Text("Outliers");
-                        EndChild();
-                        SameLine();
-                        ImGui::BeginChild("##text15", ImVec2(width_size, height_size), false);
-                        ToggleButton("##Outliers", &logViewerSettings_histogramOutliers);
-                        EndChild();
-                    }
-                    
-                    ImGui::TreePop();
-                }
-                //--------------------------------------------------------------------------------------------
-                // filling option
-
-                /*ImGui::SliderFloat("Line Thickness##",&logView_thickness, 0.0f, 3.0f, "ratio = %.2f");
-
-                ImGui::Checkbox("Global thickness ##",&logView_isGlobalThickness);
-                ImGui::SliderFloat(("Fill opacity##" , &logView_opacity, 0.0f, 1.0f, "ratio = %.2f");*/
-                //logData->logView->updateFillColor();
-
-
-                //color picker
-                
-                
-               /* if (ImGui::Checkbox(("Possitive Fill ##checkbox" +
-                    logView->logName).c_str(), &logView->positiveFill)) {
-                    if (logView->positiveFill)
-                        logView->negativeFill = true;
-                }
-                colorPicker(&logView->negativeFillColor,
-                    "Negative Fill##" + lname);
-                ImGui::SameLine();
-                ImGui::Checkbox(("Negative Fill ##checkbox" + logView->logName).c_str(),
-                    &logView->negativeFill);
-
-                if (ImGui::Checkbox(("Log Scale ##" + logView->logName).c_str(),
-                    &logView->logScalse)) {
-                    logView->activeChart->updateFlag(logView);
-                }
-
-
-                ImGui::DragScalar(
-                    ("Min##" + logView->logName).c_str(),
-                    ImGuiDataType_Double, &logView->globalAttrMin,
-                    (logView->globalAttrMax - logView->globalAttrMin) / 20.0f, &min,
-                    &max, "%0.3f");
-                ImGui::DragScalar(
-                    ("Max##" + logView->logName).c_str(),
-                    ImGuiDataType_Double, &logView->globalAttrMax,
-                    (logView->globalAttrMax - logView->globalAttrMin) / 20.0f, &min,
-                    &max, "%0.3f");*/
-                //ImGui::PopItemWidth();
-                //ImGui::EndPopup();
-             
+                //ImGui::EndGroup();
+                //ImGui::TreePop();
+                ImGui::EndChild();
             }
+
+            ImGui::SetCursorPosY(600);
+            ImGui::SetCursorPosX(170);
+            if (ImGui::BeginChild("##text02", ImVec2(1000, 100), false)) {
+
+                ImGui::BeginChild("##text9", ImVec2(buttonChildWidth + 15, buttonChildHeight), false);
+                ImGui::SetCursorPosX(15);
+                ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture9, imButton);
+                Text("System info");
+                ImGui::EndChild();
+                SameLine();
+
+                ImGui::BeginChild("##text10", ImVec2(buttonChildWidth+20, buttonChildHeight), false);
+                ImGui::SetCursorPosX(15);
+                ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture10, imButton);
+                Text("Screen shot");
+                ImGui::EndChild();
+                SameLine();
+
+                ImGui::BeginChild("##text11", ImVec2(buttonChildWidth+25, buttonChildHeight), false);
+                ImGui::SetCursorPosX(20);
+                ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture11, imButton);
+                Text("Video Capture");
+                ImGui::EndChild();
+                SameLine();
+
+                ImGui::BeginChild("##text12", ImVec2(buttonChildWidth, buttonChildHeight), false);            
+                ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture12, imButton);
+                ImGui::SetCursorPosX(15);
+                Text("VNC");
+                ImGui::EndChild();
+                SameLine();
+
+                ImGui::BeginChild("##text13", ImVec2(buttonChildWidth+35, buttonChildHeight), false);
+                ImGui::SetCursorPosX(15);
+                ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture13, imButton);               
+                Text("Calculator");
+                
+                ImGui::EndChild();
+                SameLine();
+
+                ImGui::BeginChild("##text14", ImVec2(buttonChildWidth, buttonChildHeight), false);
+                ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture14, imButton);
+                ImGui::EndChild();
+                SameLine();
+
+                ImGui::BeginChild("##text15", ImVec2(buttonChildWidth, buttonChildHeight), false);
+                ImGui::ImageButton(" ", (void*)(intptr_t)my_image_texture15, imButton);
+                ImGui::EndChild();
+
+                ImDrawList::AddRect
+
+                ImGui::EndChild();
+            }
+        ImGui::EndChild();
+        }
+        //  }
         //}          
         ImGui::PopStyleVar();
 
